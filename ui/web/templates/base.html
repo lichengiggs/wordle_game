@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle 游戏</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Wordle 游戏</h1>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2023 Wordle 游戏 | <a href="{{ url_for('reset') }}">重新开始</a></p>
+    </footer>
+</body>
+</html>

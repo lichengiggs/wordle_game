@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="game-container">
+    <div class="guess-grid">
+        {% for guess in guesses %}
+        <div class="guess-row">
+            {% for letter_result in guess['result'] %}
+            <div class="tile {{ letter_result[1] }}">
+                {{ letter_result[0]|upper }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <!-- Empty rows for remaining attempts -->
+        {% for i in range(game.max_attempts - guesses|length) %}
+        <div class="guess-row">
+            {% for j in range(5) %}
+            <div class="tile empty"></div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <form method="POST" class="guess-form">
+        <input type="text" name="guess" maxlength="5" minlength="5" required
+               placeholder="输入5个字母..." autocomplete="off">
+        <button type="submit">提交</button>
+    </form>
+
+    {% if guesses and guesses[-1]['result'] %}
+    <div class="keyboard">
+        <div class="key-row">
+            {% for letter in 'QWERTYUIOP' %}
+            <div class="key {{ game.get_letter_status()[letter] }}">{{ letter }}</div>
+            {% endfor %}
+        </div>
+        <div class="key-row">
+            {% for letter in 'ASDFGHJKL' %}
+            <div class="key {{ game.get_letter_status()[letter] }}">{{ letter }}</div>
+            {% endfor %}
+        </div>
+        <div class="key-row">
+            {% for letter in 'ZXCVBNM' %}
+            <div class="key {{ game.get_letter_status()[letter] }}">{{ letter }}</div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

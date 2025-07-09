@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="result-container">
+    {% if game.is_won() %}
+    <div class="win-message">
+        <h2>恭喜你赢了！</h2>
+        <p>您用了{{ guesses|length }}次猜出了正确答案，共{{ game.max_attempts }}次机会。</p>
+    </div>
+    {% else %}
+    <div class="lose-message">
+        <h2>游戏结束</h2>
+        <p>正确答案是: <strong>{{ target }}</strong></p>
+        <p>您已用完所有{{ game.max_attempts }}次尝试机会。</p>
+    </div>
+    {% endif %}
+    <div class="guess-history">
+        <h3>你的猜测记录:</h3>
+        {% for guess in game.guesses %}
+        <div class="guess-row">
+            {% for result in guess['result'] %}
+            <div class="tile {{ result }}">
+                {{ guess['word'][loop.index0] }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('reset') }}" class="reset-button">再来一局</a>
+</div>
+{% endblock %}

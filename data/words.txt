@@ -1,0 +1,10 @@
+apple
+banana
+grape
+mango
+lemon
+peach
+berry
+melon
+plum
+kiwi
